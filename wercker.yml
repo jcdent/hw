@@ -67,5 +67,5 @@ deploy:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
-        cmd: ls -la
+        cmd: ./bin/hw
         repository: jcdent/go-hw
