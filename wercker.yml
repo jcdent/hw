@@ -21,6 +21,9 @@ dev:
   steps:
     - internal/watch:
         code: |
+          pwd
+          ls
+          env
           go run main.go
         reload: true
 build:
@@ -64,5 +67,5 @@ deploy:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
-        cmd: /pipeline/source/hw
+        cmd: ls -la
         repository: jcdent/go-hw
