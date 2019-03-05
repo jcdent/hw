@@ -19,14 +19,19 @@ box: golang
 
 dev:
   steps:
-    - internal/watch:
+    - setup-go-workspace:
+        package-dir: github.com/jcdent/hw
+    - script:
+        name: env
+        code: env
+    - script:
+        name: build stuff
         code: |
-          pwd
-          ls $WERCKER_OUTPUT_DIR
-          env
-          go build
-          cp hw $WERCKER_OUTPUT_DIR
-          $WERCKER_OUTPUT_DIR/hw
+          go get -u github.com/Masterminds/glide
+          export PATH=$WERCKER_SOURCE_DIR/bin:$PATH
+          glide install
+    - internal/watch:
+        code: go run main.go
         reload: true
 build:
   # The steps that will be executed on build
@@ -74,4 +79,5 @@ deploy:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
+        cmd: /pipeline/source/hw
         repository: jcdent/go-hw
