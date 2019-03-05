@@ -57,3 +57,12 @@ build:
         name: go run
         code: |
           go run main.go
+
+deploy:
+  steps:
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag: latest
+        cmd: /pipeline/source/hw
+        repository: jcdent/go-hw
