@@ -74,5 +74,4 @@ deploy:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
-        cmd: /pipeline/output/hw
         repository: jcdent/go-hw
