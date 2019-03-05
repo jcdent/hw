@@ -22,9 +22,11 @@ dev:
     - internal/watch:
         code: |
           pwd
-          ls
+          ls $WERCKER_OUTPUT_DIR
           env
-          go run main.go
+          go build
+          cp hw $WERCKER_OUTPUT_DIR
+          $WERCKER_OUTPUT_DIR/hw
         reload: true
 build:
   # The steps that will be executed on build
@@ -61,11 +63,16 @@ build:
         code: |
           go run main.go
 
+    - script:
+        name: copy bin to output
+        code: |
+          cp hw $WERCKER_OUTPUT_DIR
+
 deploy:
   steps:
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
-        cmd: ./bin/hw
+        cmd: $WERCKER_OUTPUT_DIR/hw
         repository: jcdent/go-hw
